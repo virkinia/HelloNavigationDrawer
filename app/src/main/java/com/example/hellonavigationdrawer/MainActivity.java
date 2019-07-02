@@ -1,10 +1,12 @@
 package com.example.hellonavigationdrawer;
 
+import android.content.ClipData;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,6 +21,9 @@ import static android.graphics.Color.*;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    private MenuItem nav_manage;
 
 
 
@@ -49,6 +54,18 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //MY CODE
+
+        // get menu from navigationView
+        Menu menu = navigationView.getMenu();
+
+        // find MenuItem you want to change
+        nav_manage = menu.findItem(R.id.nav_manage);
+
+
+
+        this.setUserName();
+
+
 
 
     }
@@ -108,5 +125,16 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void setUserName () {
+        LoginModel login = ApplicationPreferences.readLogin("null");
+        Log.e("[MainActivity] Login", login.toString());
+        if (login ==  null) {
+            //Navegar a login
+        } else {
+            Log.e("[MainActivity] GetEmail", login.getEmail());
+            this.nav_manage.setTitle(login.getEmail());
+        }
     }
 }

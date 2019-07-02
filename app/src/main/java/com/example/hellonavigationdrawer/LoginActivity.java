@@ -40,7 +40,7 @@ import static android.Manifest.permission.READ_CONTACTS;
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
-    ApplicationPreferences mAppPreference;
+
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
-        mAppPreference.init(getApplicationContext());
+        ApplicationPreferences.init(getApplicationContext());
     }
 
     private void populateAutoComplete() {
@@ -194,7 +194,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             //mAuthTask.execute((Void) null);
 
 
-            mAppPreference.saveLogin(new LoginModel(email, password));
+            ApplicationPreferences.saveLogin(new LoginModel(email, password));
             Intent myIntent = new Intent(this, MainActivity.class);
             startActivity(myIntent);
         }

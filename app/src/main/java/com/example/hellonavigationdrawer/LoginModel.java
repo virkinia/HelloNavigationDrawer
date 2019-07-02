@@ -6,8 +6,8 @@ public class LoginModel {
     private String password;
 
     public LoginModel(String email, String password) {
-        email = email;
-        password = password;
+        this.email = email;
+        this.password = password;
     }
 
     public String getEmail() {
