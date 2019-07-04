@@ -6,6 +6,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -16,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 
 import static android.graphics.Color.*;
 
@@ -24,6 +28,7 @@ public class MainActivity extends AppCompatActivity
 
 
     private MenuItem nav_manage;
+    private FrameLayout main_container;
 
 
 
@@ -58,11 +63,10 @@ public class MainActivity extends AppCompatActivity
         // get menu from navigationView
         Menu menu = navigationView.getMenu();
 
+        main_container = findViewById(R.id.main_container);
+
         // find MenuItem you want to change
         nav_manage = menu.findItem(R.id.nav_manage);
-
-
-
         this.setUserName();
 
 
@@ -115,6 +119,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
+            setFragment(new UserFragment());
+
 
         } else if (id == R.id.nav_share) {
 
@@ -137,4 +143,17 @@ public class MainActivity extends AppCompatActivity
             this.nav_manage.setTitle(login.getEmail());
         }
     }
+
+    private void setFragment(Fragment miFragment)
+    {
+
+        FragmentManager FM  = getSupportFragmentManager();
+        FragmentTransaction FT = FM.beginTransaction();
+
+
+        FT.replace(R.id.main_container, miFragment);
+        FT.commit();
+    }
+
+
 }
